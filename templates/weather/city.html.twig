@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{#@var place \App\Entity\Place#}
+{#@var weatherRecords \App\Entity\WeatherRecord[]#}
+
+
+{% block title %}Weather in {{ place.city }}, {{ place.country }}{% endblock %}
+
+
+{% block body %}
+    <main>
+        <h1>Weather in {{ place.city }}, {{ place.country }}</h1>
+
+
+        <ul>
+            {% for weatherRecord in weatherRecords %}
+                <li>{{ weatherRecord.date|date('d.m.Y') }}: {{ weatherRecord.temperature }}&deg;C</li>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock %}
