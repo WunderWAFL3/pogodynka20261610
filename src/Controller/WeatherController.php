@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class WeatherController extends AbstractController
 {
-    #[Route('/weather/{country}/{city}', name: 'app_weather')]
+    ##[Route('/weather/{country}/{city}', name: 'app_weather')]
     public function city(string $country, string $city, PlaceRepository $placeRepository, WeatherRecordRepository $weatherRecordRepository): Response
     {
         $place = $placeRepository->findOneByCityAndCountry($city, $country);
