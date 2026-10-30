@@ -1,0 +1,43 @@
+App\Entity\WeatherRecord:
+    properties:
+        temperature:
+            - NotBlank:
+                  groups: [ 'create', 'edit' ]
+                  message: "The temperature cannot be blank."
+            - Range:
+                  min: -50
+                  max: 50
+                  groups: [ 'create', 'edit' ]
+                  notInRangeMessage: "The temperature must be between {{ min }} and {{ max }}."
+        date:
+            - NotBlank:
+                  groups: [ 'create', 'edit' ]
+                  message: "The date cannot be blank."
+        
+
+App\Entity\Place:
+    properties:
+        city:
+            - NotBlank:
+                  groups: [ 'create', 'edit' ]
+                  message: "The city name cannot be blank."
+        country:
+            - NotBlank:
+                  groups: [ 'create', 'edit' ]
+                  message: "The country cannot be blank."
+        latitude:
+            - NotBlank:
+                  groups: [ 'create', 'edit' ]
+            - Range:
+                  min: -90
+                  max: 90
+                  groups: [ 'create', 'edit' ]
+                  notInRangeMessage: "This value should be between -90 and 90."
+        longitude:
+            - NotBlank:
+                  groups: [ 'create', 'edit' ]
+            - Range:
+                  min: -180
+                  max: 180
+                  groups: [ 'create', 'edit' ]
+                  notInRangeMessage: "This value should be between -180 and 180."

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WeatherRecord{% endblock %}
+
+{% block body %}
+    <h1>WeatherRecord</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ weather_record.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ weather_record.date ? weather_record.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Temperature</th>
+                <td>{{ weather_record.temperature }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_weather_record_index') }}">back to list</a>
+
+    <a href="{{ path('app_weather_record_edit', {'id': weather_record.id}) }}">edit</a>
+
+    {{ include('weather_record/_delete_form.html.twig') }}
+{% endblock %}
