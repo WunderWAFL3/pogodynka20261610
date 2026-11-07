@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/weather/record')]
 final class WeatherRecordController extends AbstractController
 {
     #[Route(name: 'app_weather_record_index', methods: ['GET'])]
+    #[IsGranted('ROLE_WEATHERRECORD_INDEX')]
     public function index(WeatherRecordRepository $weatherRecordRepository): Response
     {
         return $this->render('weather_record/index.html.twig', [
@@ -23,6 +25,7 @@ final class WeatherRecordController extends AbstractController
     }
 
     #[Route('/new', name: 'app_weather_record_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_WEATHERRECORD_NEW')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $weatherRecord = new WeatherRecord();
@@ -45,6 +48,7 @@ final class WeatherRecordController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_weather_record_show', methods: ['GET'])]
+    #[IsGranted('ROLE_WEATHERRECORD_SHOW')]
     public function show(WeatherRecord $weatherRecord): Response
     {
         return $this->render('weather_record/show.html.twig', [
@@ -53,6 +57,7 @@ final class WeatherRecordController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_weather_record_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_WEATHERRECORD_EDIT')]
     public function edit(Request $request, WeatherRecord $weatherRecord, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(WeatherRecordType::class, $weatherRecord, [
@@ -73,6 +78,7 @@ final class WeatherRecordController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_weather_record_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_WEATHERRECORD_DELETE')]
     public function delete(Request $request, WeatherRecord $weatherRecord, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$weatherRecord->getId(), $request->getPayload()->getString('_token'))) {

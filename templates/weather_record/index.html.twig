@@ -21,8 +21,12 @@
                 <td>{{ weather_record.date ? weather_record.date|date('Y-m-d') : '' }}</td>
                 <td>{{ weather_record.temperature }}</td>
                 <td>
-                    <a href="{{ path('app_weather_record_show', {'id': weather_record.id}) }}">show</a>
-                    <a href="{{ path('app_weather_record_edit', {'id': weather_record.id}) }}">edit</a>
+                    {% if is_granted('ROLE_WEATHERRECORD_SHOW') %}
+                        <a href="{{ path('app_weather_record_show', {'id': weather_record.id}) }}">show</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_WEATHERRECORD_EDIT') %}
+                        <a href="{{ path('app_weather_record_edit', {'id': weather_record.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -32,6 +36,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_weather_record_new') }}">Create new</a>
+    {% if is_granted('ROLE_WEATHERRECORD_NEW') %}
+        <a href="{{ path('app_weather_record_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

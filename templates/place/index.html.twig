@@ -25,8 +25,12 @@
                 <td>{{ place.latitude }}</td>
                 <td>{{ place.longitude }}</td>
                 <td>
-                    <a href="{{ path('app_place_show', {'id': place.id}) }}">show</a>
-                    <a href="{{ path('app_place_edit', {'id': place.id}) }}">edit</a>
+                    {% if is_granted('ROLE_PLACE_SHOW') %}
+                        <a href="{{ path('app_place_show', {'id': place.id}) }}">show</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_PLACE_EDIT') %}
+                        <a href="{{ path('app_place_edit', {'id': place.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -37,5 +41,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_place_new') }}">Create new</a>
+    {% if is_granted('ROLE_PLACE_NEW') %}
+        <a href="{{ path('app_place_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
