@@ -1,0 +1,6 @@
+{%- apply spaceless -%}
+city,country,date,celsius,fahrenheit
+{% for m in measurements %}
+{{ city }},{{ country }},{{ m.date|date('Y-m-d') }},{{ m.temperature }},{{ m.fahrenheit }}
+{% endfor %}
+{%- endapply -%}
